@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ "scripts": {
+  "start": "node src/app.js",
+  "test": "jest --detectOpenHandles --forceExit"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Trinh-My-Loan/product-api.git"
