@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Trinh-My-Loan/product-api.git"
