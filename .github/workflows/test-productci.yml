@@ -1,0 +1,40 @@
+name: Product API Simple CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check server.js
+          node --check models/Product.js
+          node --check controllers/productController.js
+          node --check routes/productRoutes.js
+
+      - name: Check required project files
+        run: |
+          test -f Dockerfile
+          test -f docker-compose.yml
+          test -f .env.example
+
+      - name: CI completed
+        run: echo "Product API Simple CI passed!"
