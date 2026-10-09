@@ -1,0 +1,60 @@
+
+name: Product API Deploy Local
+
+on:
+  workflow_run:
+    workflows: ["Product API CD Docker Hub"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-local:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on:
+      - self-hosted
+      - Windows
+      - X64
+      - product-api-deploy
+
+    defaults:
+      run:
+        shell: powershell
+
+    steps:
+      - name: Checkout deployment files
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Check Docker Engine
+        run: docker info
+
+      - name: Pull Docker Hub image
+        run: docker pull trinhmyloan/product-api:latest
+
+      - name: Deploy to Local Docker Engine
+        run: |
+          docker compose -f docker-compose-prod.yaml up -d --no-build --pull always --force-recreate
+
+      - name: Verify API health
+        run: |
+          $healthy = $false
+          for ($i = 1; $i -le 30; $i++) {
+            try {
+              $response = Invoke-RestMethod -Uri "http://127.0.0.1:3001/health" -TimeoutSec 5
+              if ($response.status -eq "healthy" -and $response.database -eq "connected") {
+                $healthy = $true
+                break
+              }
+            } catch {
+              Start-Sleep -Seconds 2
+            }
+          }
+          if (-not $healthy) {
+            throw "Product API healthcheck failed"
+          }
+          Write-Host "LOCAL DEPLOYMENT SUCCESSFUL!"
