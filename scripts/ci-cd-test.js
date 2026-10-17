@@ -47,11 +47,11 @@ async function testNotFound() {
 
   console.log("PASS: 404 Not Found");
 }
-// async function testMoi() {
-//   const res = await fetch(`${baseUrl}/api/products`);
-//   if (res.status !== 200) throw new Error("Test failed");
-//   console.log("PASS: Test moi");
-// }
+ async function testMoi() {
+   const res = await fetch(`${baseUrl}/health`);
+  if (res.status !== 200) throw new Error("Test failed");
+   console.log("PASS: Test moi");
+}
 // CHAY TAT CA TEST
 async function runTests() {
   try {
@@ -59,7 +59,7 @@ async function runTests() {
     await testDatabase();
     await testGetProducts();
     await testNotFound();
-
+    await testMoi();
     console.log("CI/CD test passed");
   } catch (error) {
     console.error("TEST FAILED:", error.message);
