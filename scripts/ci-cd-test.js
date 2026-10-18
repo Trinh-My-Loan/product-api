@@ -101,7 +101,7 @@ async function testProductData() {
 //   console.log("PASS: Test moi");
 // }
 async function test() {
-  const res = await fetch(`${baseUrl}/api/products/P0014`);
+ const res = await fetch(`${baseUrl}/api/products/P0017`);
   if (res.status !== 200) throw new Error("Test loi");
   console.log("PASS: Sam pham ton tai");
 }
