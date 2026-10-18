@@ -100,25 +100,25 @@ async function testProductData() {
 //   if (res.status !== 200) throw new Error("Test loi");
 //   console.log("PASS: Test moi");
 // }
-async function testMoi() {
-  const res = await fetch(`${baseUrl}/api/products/P0011`);
+async function test() {
+  const res = await fetch(`${baseUrl}/api/products/P0014`);
   if (res.status !== 200) throw new Error("Test loi");
   console.log("PASS: Sam pham ton tai");
 }
+
 // CHAY TAT CA TEST
 async function runTests() {
   try {
    await testHealth();
-    //await testDatabase();
-    //await testGetProducts();
-    //await testArray();
-    //await testNotFound();
-    //await testStatus();
-    //await testSpeed();
-    //await testProductData();
+   await testDatabase();
+   await testGetProducts();
+   await testArray();
+   await testNotFound();
+   await testStatus();
+   await testSpeed();
+   await testProductData();
 
-    await testMoi();
-
+    await test();
     console.log("CI/CD test passed");
   } catch (error) {
     console.error("TEST FAILED:", error.message);
