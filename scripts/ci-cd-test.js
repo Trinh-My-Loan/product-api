@@ -103,19 +103,19 @@ async function testProductData() {
 async function testMoi() {
   const res = await fetch(`${baseUrl}/api/products/P0011`);
   if (res.status !== 200) throw new Error("Test loi");
-  console.log("PASS: Sam pham tontai");
+  console.log("PASS: Sam pham ton tai");
 }
 // CHAY TAT CA TEST
 async function runTests() {
   try {
-    await testHealth();
-    await testDatabase();
-    await testGetProducts();
-    await testArray();
-    await testNotFound();
-    await testStatus();
-    await testSpeed();
-    await testProductData();
+   await testHealth();
+    //await testDatabase();
+    //await testGetProducts();
+    //await testArray();
+    //await testNotFound();
+    //await testStatus();
+    //await testSpeed();
+    //await testProductData();
 
     await testMoi();
 

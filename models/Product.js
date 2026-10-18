@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
   pid: {
     type: String,
     required: [true, 'Product ID is required'],
-    unique: true,
+    unique: false,
     trim: true
   },
 
